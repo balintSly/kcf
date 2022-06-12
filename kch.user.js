@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.2.7
+// @version      0.2.8
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -11,6 +11,20 @@
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
 // ==/UserScript==
+let months=new Object();
+months['jan']="1";
+months['feb']="2";
+months['márc']="3";
+months['ápr']="4";
+months['máj']="5";
+months['jún']="6";
+months['júl']="7";
+months['aug']="8";
+months['szept']="9";
+months['okt']="10";
+months['nov']="11";
+months['dec']="12";
+
 window.addEventListener('load', (event) => {
     initScript();
 });
@@ -19,20 +33,6 @@ function initScript() {
     document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='hide_btn'>Hide Old</button>";
     document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='show_btn'>Show All</button>"+html;
     document.getElementById('show_btn').style.display="none";
-
-    let months=new Object();
-    months['jan']="1";
-    months['feb']="2";
-    months['márc']="3";
-    months['ápr']="4";
-    months['máj']="5";
-    months['jún']="6";
-    months['júl']="7";
-    months['aug']="8";
-    months['szept']="9";
-    months['okt']="10";
-    months['nov']="11";
-    months['dec']="12";
 
     document.getElementById("hide_btn").addEventListener("click", hide);
     document.getElementById("show_btn").addEventListener("click", show);

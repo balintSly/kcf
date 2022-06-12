@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.3.3
+// @version      0.3.4
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -32,13 +32,16 @@ window.addEventListener('hashchange', initScript);
 
 function initScript() {
     let path=window.location.pathname;
-    let html=document.getElementsByClassName("ui basic segment")[0].innerHTML;
-    document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='hide_btn'>Hide Old</button>";
-    document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='show_btn'>Show All</button>"+html;
-    document.getElementById('show_btn').style.display="none";
+    if (path=="/my-courses"){
+        let html=document.getElementsByClassName("ui basic segment")[0].innerHTML;
+        document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='hide_btn'>Hide Old</button>";
+        document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='show_btn'>Show All</button>"+html;
+        document.getElementById('show_btn').style.display="none";
 
-    document.getElementById("hide_btn").addEventListener("click", hide);
-    document.getElementById("show_btn").addEventListener("click", show);
+        document.getElementById("hide_btn").addEventListener("click", hide);
+        document.getElementById("show_btn").addEventListener("click", show);
+    }
+
 }
 function hide(){
     document.getElementById('show_btn').style.display="block";

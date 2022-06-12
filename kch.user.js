@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.3.0
+// @version      0.3.1
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
 // @author       Sly
-// @match        https://www.kmooc.uni-obuda.hu/my-courses
+// @match        https://www.kmooc.uni-obuda.hu
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js

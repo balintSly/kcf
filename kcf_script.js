@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.2.1
+// @version      0.2.2
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
 // @description  Hides old courses
@@ -14,6 +14,8 @@
 
 let html=document.getElementsByClassName("ui basic segment")[0].innerHTML;
 document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='hide_btn'>Hide Old</button>"+html;
+document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='show_btn'>Show All</button>"+html;
+document.getElementById('show_btn').style.display="none";
 
 let months=new Object();
 months['jan']="1";
@@ -30,6 +32,8 @@ months['nov']="11";
 months['dec']="12";
 
 function hide(){
+    document.getElementById('show_btn').style.display="block";
+    document.getElementById('hide_btn').style.display="none";
     let item_con=document.getElementsByClassName("ui divided items")[0];
     let divs=item_con.children;
     for (let i = 0; i < divs.length; i++) {
@@ -53,5 +57,15 @@ function hide(){
         }
     }
 }
+function show() {
+    document.getElementById('show_btn').style.display="none";
+    document.getElementById('hide_btn').style.display="block";
+    let item_con=document.getElementsByClassName("ui divided items")[0];
+    let divs=item_con.children;
+    for (let i = 0; i < divs.length; i++) {
+        divs[i].style.display="none";
+    }
+}
 document.getElementById("hide_btn").addEventListener("click", hide);
+document.getElementById("show_btn").addEventListener("click", show);
 

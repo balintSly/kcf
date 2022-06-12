@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.2.3
+// @version      0.2.4
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
 // @description  Hides old courses
@@ -63,7 +63,7 @@ function show() {
     let item_con=document.getElementsByClassName("ui divided items")[0];
     let divs=item_con.children;
     for (let i = 0; i < divs.length; i++) {
-        divs[i].style.display="none";
+        divs[i].style.display="block";
     }
 }
 document.getElementById("hide_btn").addEventListener("click", hide);

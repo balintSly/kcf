@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.2.2
+// @version      0.2.3
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
 // @description  Hides old courses
@@ -13,8 +13,8 @@
 // ==/UserScript==
 
 let html=document.getElementsByClassName("ui basic segment")[0].innerHTML;
-document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='hide_btn'>Hide Old</button>"+html;
-document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='show_btn'>Show All</button>"+html;
+document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='hide_btn'>Hide Old</button>"+html;
+document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='show_btn'>Show All</button>"+html;
 document.getElementById('show_btn').style.display="none";
 
 let months=new Object();

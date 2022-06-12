@@ -13,7 +13,7 @@
 // ==/UserScript==
 
 let html=document.getElementsByClassName("ui basic segment")[0].innerHTML;
-document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='hide_btn'>Hide Old</button>"+html;
+document.getElementsByClassName("ui basic segment")[0].innerHTML="<button id='hide_btn'>Hide Old</button>";
 document.getElementsByClassName("ui basic segment")[0].innerHTML+="<button id='show_btn'>Show All</button>"+html;
 document.getElementById('show_btn').style.display="none";
 

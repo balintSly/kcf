@@ -68,4 +68,5 @@ function show() {
 }
 document.getElementById("hide_btn").addEventListener("click", hide);
 document.getElementById("show_btn").addEventListener("click", show);
+window.location.reload();
 

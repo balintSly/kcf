@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.2.4
-// @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
-// @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kcf_script.js
+// @version      0.2.5
+// @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
+// @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
 // @author       Sly
 // @match        https://www.kmooc.uni-obuda.hu/my-courses

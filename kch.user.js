@@ -59,11 +59,11 @@ function hide(){
         {
             divs[i].style.display="none";
         }
-        else if(creditEnd.split('.')[1]<now.split('.')[1])
+        else if(creditEnd.split('.')[0]>=now.split('.')[0] && creditEnd.split('.')[1]<now.split('.')[1])
         {
             divs[i].style.display="none";
         }
-        else if( creditEnd.split('.')[2]<now.split('.')[2])
+        else if(creditEnd.split('.')[0]>=now.split('.')[0] && creditEnd.split('.')[1]>=now.split('.')[1] && creditEnd.split('.')[2]<now.split('.')[2])
         {
             divs[i].style.display="none";
         }

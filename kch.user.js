@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.4.1
+// @version      0.4.2
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -21,18 +21,10 @@ var pageURLCheckTimer = setInterval (
         ) {
             this.lastPathStr  = location.pathname;
             this.lastQueryStr = location.search;
-            gmMain ();
         }
     }
     , 222
 );
-
-function gmMain () {
-    if (window.self === window.top)
-        alert ('"New" main (top) page loaded.');
-    else
-        alert ('"New" iframed page loaded.');
-}
 
 let months=new Object();
 months['jan']="1";

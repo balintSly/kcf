@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.4.0
+// @version      0.4.1
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -11,6 +11,29 @@
 // @grant        none
 // @require      https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js
 // ==/UserScript==
+
+var pageURLCheckTimer = setInterval (
+    function () {
+        if (    this.lastPathStr  !== location.pathname
+            ||  this.lastQueryStr !== location.search
+            ||  this.lastPathStr   === null
+            ||  this.lastQueryStr  === null
+        ) {
+            this.lastPathStr  = location.pathname;
+            this.lastQueryStr = location.search;
+            gmMain ();
+        }
+    }
+    , 222
+);
+
+function gmMain () {
+    if (window.self === window.top)
+        alert ('"New" main (top) page loaded.');
+    else
+        alert ('"New" iframed page loaded.');
+}
+
 let months=new Object();
 months['jan']="1";
 months['feb']="2";
@@ -41,12 +64,6 @@ function initScript() {
         document.getElementById("hide_btn").addEventListener("click", hide);
         document.getElementById("show_btn").addEventListener("click", show);
     }
-    if(window.sessionStorage.getItem("first")==undefined)
-    {
-        window.sessionStorage.setItem("first", "ok");
-        location.reload();
-    }
-
 }
 function hide(){
     document.getElementById('show_btn').style.display="block";

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.3.5
+// @version      0.3.6
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -55,15 +55,7 @@ function hide(){
         let creditEnd=courseInfo[3].innerText.split(",")[0].split(":")[1].replace(" ","").replace(" ","").replace(" ",".").split(" ")[0].slice(0, -1);
         courseEnd=courseEnd.replace(courseEnd.split('.')[1],months[courseEnd.split('.')[1]]);
         creditEnd=creditEnd.replace(creditEnd.split('.')[1],months[creditEnd.split('.')[1]]);
-        if (creditEnd.split('.')[0]<now.split('.')[0])
-        {
-            divs[i].style.display="none";
-        }
-        else if(creditEnd.split('.')[1]<now.split('.')[1])
-        {
-            divs[i].style.display="none";
-        }
-        else if(creditEnd.split('.')[1]<now.split('.')[1])
+        if (creditEnd.split('.')[0]<now.split('.')[0] && creditEnd.split('.')[1]<now.split('.')[1] && creditEnd.split('.')[2]<now.split('.')[2])
         {
             divs[i].style.display="none";
         }

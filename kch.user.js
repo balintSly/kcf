@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.4.3
+// @version      0.4.4
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -26,10 +26,12 @@ months['okt']="10";
 months['nov']="11";
 months['dec']="12";
 
-//window.addEventListener('load',initScript);
-//document.getElementsByClassName("ui basic segment")[0].addEventListener("load", initScript);
 window.addEventListener('load', initScript);
 window.addEventListener('hashchange', initScript);
+let finishedCourses=new Array();
+let actualCourses=new Array();
+let notActualCourses=new Array();
+let allCourses=new Array();
 
 function initScript() {
     let path=window.location.pathname;
@@ -42,39 +44,41 @@ function initScript() {
 
         document.getElementById("hide_btn").addEventListener("click", hide);
         document.getElementById("show_btn").addEventListener("click", show);
+
+        let item_con=document.getElementsByClassName("ui divided items")[0];
+        let divs=item_con.children;
+        allCourses=divs;
+        for (let i = 0; i < divs.length; i++) {
+            let now=new Date().toLocaleString().replace(" ","").replace(" ","").split(" ")[0].slice(0, -1).replace(".0",".").replace(".0",".");
+            let courseInfo=divs[i].getElementsByClassName("item");
+            let courseEnd=courseInfo[2].innerText.split(",")[0].split(":")[1].replace(" ","").replace(" ","").replace(" ",".").split(" ")[0].slice(0, -1);
+            let creditEnd=courseInfo[3].innerText.split(",")[0].split(":")[1].replace(" ","").replace(" ","").replace(" ",".").split(" ")[0].slice(0, -1);
+            courseEnd=courseEnd.replace(courseEnd.split('.')[1],months[courseEnd.split('.')[1]]);
+            creditEnd=creditEnd.replace(creditEnd.split('.')[1],months[creditEnd.split('.')[1]]);
+            if ((creditEnd.split('.')[0]<now.split('.')[0]) ||
+                (creditEnd.split('.')[0]==now.split('.')[0] && creditEnd.split('.')[1]<now.split('.')[1]) ||
+                (creditEnd.split('.')[0]==now.split('.')[0] && creditEnd.split('.')[1]==now.split('.')[1] && creditEnd.split('.')[2]<now.split('.')[2]))
+            {
+                notActualCourses.push(divs[i]);
+            }
+            else
+            {
+                actualCourses.push(divs[i]);
+            }
+        }
+        document.getElementById("counter_div").innerHTML="<h2>Aktuális kurzusaim: "+actualCourses.length+"</h2>";
+        document.getElementsByClassName("ui header")[0].innerHTML="";
     }
 }
+
 function hide(){
     document.getElementById('show_btn').style.display="block";
     document.getElementById('hide_btn').style.display="none";
-    let item_con=document.getElementsByClassName("ui divided items")[0];
-    let divs=item_con.children;
-    let courseCount=divs.length;
-    for (let i = 0; i < divs.length; i++) {
-        let now=new Date().toLocaleString().replace(" ","").replace(" ","").split(" ")[0].slice(0, -1).replace(".0",".").replace(".0",".");
-        let courseInfo=divs[i].getElementsByClassName("item");
-        let courseEnd=courseInfo[2].innerText.split(",")[0].split(":")[1].replace(" ","").replace(" ","").replace(" ",".").split(" ")[0].slice(0, -1);
-        let creditEnd=courseInfo[3].innerText.split(",")[0].split(":")[1].replace(" ","").replace(" ","").replace(" ",".").split(" ")[0].slice(0, -1);
-        courseEnd=courseEnd.replace(courseEnd.split('.')[1],months[courseEnd.split('.')[1]]);
-        creditEnd=creditEnd.replace(creditEnd.split('.')[1],months[creditEnd.split('.')[1]]);
-        if (creditEnd.split('.')[0]<now.split('.')[0])
-        {
-            divs[i].style.display="none";
-            courseCount--;
-        }
-        else if(creditEnd.split('.')[0]==now.split('.')[0] && creditEnd.split('.')[1]<now.split('.')[1])
-        {
-            divs[i].style.display="none";
-            courseCount--;
-        }
-        else if(creditEnd.split('.')[0]==now.split('.')[0] && creditEnd.split('.')[1]==now.split('.')[1] && creditEnd.split('.')[2]<now.split('.')[2])
-        {
-            divs[i].style.display="none";
-            courseCount--;
-        }
-        document.getElementById("counter_div").innerHTML="<h2>Aktuális kurzusaim: "+courseCount+"</h2>";
+    for (let i = 0; i < notActualCourses.length; i++) {
+        notActualCourses[i].style.display="none";
     }
 }
+
 function show() {
     document.getElementById('show_btn').style.display="none";
     document.getElementById('hide_btn').style.display="block";
@@ -85,4 +89,6 @@ function show() {
     }
 }
 
+function cacheCourses() {
 
+}

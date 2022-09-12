@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kmooc Course Hider
 // @namespace    http://tampermonkey.net/
-// @version      0.4.4
+// @version      0.4.5
 // @updateURL    https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @downloadURL  https://raw.githubusercontent.com/balintSly/kcf/master/kch.user.js
 // @description  Hides old courses
@@ -27,7 +27,11 @@ months['nov']="11";
 months['dec']="12";
 
 window.addEventListener('load', initScript);
-window.addEventListener('hashchange', initScript);
+window.addEventListener('hashchange', initScript, false);
+waitForElm('.description').then((elm) => {
+    initScript();
+});
+
 let finishedCourses=new Array();
 let actualCourses=new Array();
 let notActualCourses=new Array();
@@ -82,13 +86,27 @@ function hide(){
 function show() {
     document.getElementById('show_btn').style.display="none";
     document.getElementById('hide_btn').style.display="block";
-    let item_con=document.getElementsByClassName("ui divided items")[0];
-    let divs=item_con.children;
-    for (let i = 0; i < divs.length; i++) {
-        divs[i].style.display="block";
+    for (let i = 0; i < allCourses.length; i++) {
+        allCourses[i].style.display="block";
     }
 }
 
-function cacheCourses() {
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
 
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
 }
